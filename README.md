@@ -7,7 +7,7 @@ git clone https://github.com/your-username/express.com.git
 cd express.com
 
 # Initialize Node.js project
-npm init -y
+npm init -y 
 
 # Install dependencies
 npm install express mongoose ejs body-parser cors dotenv
@@ -166,4 +166,7 @@ express.com/
 git add .
 git commit -m "Fix: added package.json and correct structure"
 git push origin main
+# Enter folder#
+PAKAGE .JSON
+
 
