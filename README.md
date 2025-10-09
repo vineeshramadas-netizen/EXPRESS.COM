@@ -168,5 +168,6 @@ git commit -m "Fix: added package.json and correct structure"
 git push origin main
 # Enter folder#
 PAKAGE .JSON
+npm install
 
 
