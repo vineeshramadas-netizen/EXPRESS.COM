@@ -30,4 +30,6 @@ echo "Replaced package.json with fixed version. Original saved as package.json.b
   "dependencies": {
     "react": "^18.2.0"
   }
+head -c 300 package.json | sed -n '1,120p'
+node -e "try{JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('JSON OK')}catch(e){console.error('PARSE ERROR:', e.message)}"
 
