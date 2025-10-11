@@ -13,3 +13,5 @@
     "dotenv": "^16.3.1"
   }
 }
+wc -c package.json
+head -c 300 package.json | sed -n '1,120p'
