@@ -17,3 +17,6 @@ wc -c package.json
 head -c 300 package.json | sed -n '1,120p'
 perl -0777 -pe 's/}\s*(\n\s*)"dependencies"/},\n\1"dependencies"/s' package.json > package.json.fixed
 node -e "try{JSON.parse(require('fs').readFileSync('package.json.fixed','utf8')); console.log('FIXED JSON OK')}catch(e){console.error('FIX FAILED:', e.message); process.exit(1)}"
+mv package.json package.json.broken
+mv package.json.fixed package.json
+echo "Applied automated fix. Original saved -> package.json.broken"
