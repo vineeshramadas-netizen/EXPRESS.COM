@@ -13,4 +13,7 @@ cat > package.json <<'JSON'
     "vite": "^5.0.0"
   }
 }
+# show file size and first 200 characters (error near pos ~118)
+wc -c package.json
+head -c 300 package.json | sed -n '1,120p'
 
