@@ -24,3 +24,6 @@ node -e "try{JSON.parse(require('fs').readFileSync('package.json','utf8')); cons
 rm -rf node_modules package-lock.json
 npm install
 npm run build
+git add package.json package-lock.json
+git commit -m "fix(package.json): valid JSON (add missing comma) for Netlify build"
+git push
