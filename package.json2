@@ -16,4 +16,5 @@
     "vite": "^5.4.0"
   }
 }
+head -c 300 package.json | sed -n '1,120p'
 
