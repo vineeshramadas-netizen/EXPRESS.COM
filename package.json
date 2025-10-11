@@ -21,3 +21,6 @@ mv package.json package.json.broken
 mv package.json.fixed package.json
 echo "Applied automated fix. Original saved -> package.json.broken"
 node -e "try{JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('FINAL JSON OK')}catch(e){console.error('STILL BAD:', e.message)}"
+rm -rf node_modules package-lock.json
+npm install
+npm run build
