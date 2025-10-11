@@ -24,4 +24,10 @@ node -e "try{JSON.parse(require('fs').readFileSync('package.json.fixed','utf8'))
 mv package.json package.json.broken
 mv package.json.fixed package.json
 echo "Replaced package.json with fixed version. Original saved as package.json.broken"
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "react": "^18.2.0"
+  }
 
