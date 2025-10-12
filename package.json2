@@ -1,6 +1,5 @@
-cat > package.json <<'JSON'
 {
-  "name": "express.com",
+  "name": "express-frontend",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -8,16 +7,14 @@ cat > package.json <<'JSON'
     "build": "vite build",
     "preview": "vite preview"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
   "devDependencies": {
-    "vite": "^5.0.0"
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.0"
   }
 }
-JSON
-# then test locally:
-npm install
-npm run build
-# commit & push if you want Vercel to retry
-git add package.json package-lock.json
-git commit -m "fix: restore valid package.json for build"
-git push
+head -c 300 package.json | sed -n '1,120p'
+
