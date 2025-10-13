@@ -1,0 +1,36 @@
+:root{--bg:#0b1020;--panel:#111735;--muted:#a9b0c5;--text:#eaf0ff;--accent:#6aa0ff;--accent-2:#9b6bff;--danger:#ff5d7d}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:radial-gradient(1200px 800px at 10% 0%, #0d1330 0%, var(--bg) 70%),
+      radial-gradient(1400px 900px at 90% 0%, #0b1e3a 0%, var(--bg) 60%);
+  color:var(--text);font:16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial}
+
+.container{max-width:960px;margin:0 auto;padding:24px}
+header{display:flex;justify-content:space-between;align-items:center}
+header h1{margin:0;font-size:24px}
+nav a{color:var(--muted);text-decoration:none;margin-left:16px}
+nav a:hover{color:var(--text)}
+
+.card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;margin-top:16px;backdrop-filter: blur(8px)}
+.card.center{text-align:center}
+
+.grid{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:16px}
+.grid label{display:flex;flex-direction:column;font-size:14px;color:var(--muted)}
+.grid input,.grid select{margin-top:6px;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:#0e1533;color:var(--text)}
+.grid input:focus,.grid select:focus{outline:2px solid rgba(106,160,255,.4)}
+
+.actions{grid-column:1/-1;text-align:right}
+button, .button{appearance:none;border:0;border-radius:12px;padding:10px 16px;background:linear-gradient(90deg, var(--accent), var(--accent-2));color:white;font-weight:600;cursor:pointer}
+button:hover,.button:hover{filter:brightness(1.1)}
+
+.alert{background:rgba(255,93,125,.12);border:1px solid rgba(255,93,125,.4);color:#ffd2dc;padding:12px;border-radius:10px;margin-bottom:12px}
+
+.table{display:grid;grid-template-columns:1fr}
+.row{display:grid;grid-template-columns:2fr 2fr 2fr 1fr 1fr;gap:12px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
+.row.header{font-weight:700;color:var(--muted);background:rgba(255,255,255,.02)}
+
+@media (max-width:720px){
+  .grid{grid-template-columns:1fr}
+  .row{grid-template-columns:1.2fr 1.8fr 1.8fr 1fr 1fr}
+}

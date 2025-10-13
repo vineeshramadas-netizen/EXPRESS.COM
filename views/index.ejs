@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Express.com – Hotel Booking</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="container">
+      <h1>Express.com</h1>
+      <nav>
+        <a href="/bookings">View Bookings</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="alert"><%= error %></div>
+      <% } %>
+
+      <section class="card">
+        <h2>Book your stay</h2>
+        <form action="/book" method="POST" class="grid">
+          <label>
+            <span>Full Name</span>
+            <input type="text" name="name" required />
+          </label>
+
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" required />
+          </label>
+
+          <label>
+            <span>Phone</span>
+            <input type="tel" name="phone" />
+          </label>
+
+          <label>
+            <span>Check-in</span>
+            <input type="date" name="checkIn" required />
+          </label>
+
+          <label>
+            <span>Check-out</span>
+            <input type="date" name="checkOut" required />
+          </label>
+
+          <label>
+            <span>Guests</span>
+            <input type="number" name="guests" min="1" value="1" required />
+          </label>
+
+          <label>
+            <span>Room Type</span>
+            <select name="roomType">
+              <option>Standard</option>
+              <option>Deluxe</option>
+              <option>Suite</option>
+            </select>
+          </label>
+
+          <div class="actions">
+            <button type="submit">Book Now</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="/main.js" defer></script>
+  </body>
+</html>

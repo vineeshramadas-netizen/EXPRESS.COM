@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>All Bookings</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="container">
+      <h1>Express.com</h1>
+      <nav>
+        <a href="/">New Booking</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <h2>Bookings</h2>
+        <% if (!bookings || bookings.length === 0) { %>
+          <p>No bookings yet.</p>
+        <% } else { %>
+          <div class="table">
+            <div class="row header">
+              <div>Name</div>
+              <div>Email</div>
+              <div>Dates</div>
+              <div>Guests</div>
+              <div>Room</div>
+            </div>
+            <% bookings.forEach(b => { %>
+              <div class="row">
+                <div><%= b.name %></div>
+                <div><%= b.email %></div>
+                <div>
+                  <%= new Date(b.checkIn).toLocaleDateString() %>
+                  –
+                  <%= new Date(b.checkOut).toLocaleDateString() %>
+                </div>
+                <div><%= b.guests %></div>
+                <div><%= b.roomType %></div>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>
