@@ -9,11 +9,15 @@ import { authRouter } from './routes/auth';
 import { hotelsRouter } from './routes/hotels';
 import { roomsRouter } from './routes/rooms';
 import { bookingsRouter } from './routes/bookings';
+import { paymentsRouter } from './routes/payments';
+import { webhooksRouter } from './routes/webhooks';
 
 const app = express();
 
 app.use(helmet());
 app.use(cors({ origin: true, credentials: true }));
+// Stripe webhook needs raw body for signature validation; mount before json
+app.use('/api/webhooks/stripe', express.raw({ type: 'application/json' }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -22,6 +26,8 @@ app.use('/api/auth', authRouter);
 app.use('/api/hotels', hotelsRouter);
 app.use('/api/rooms', roomsRouter);
 app.use('/api/bookings', bookingsRouter);
+app.use('/api/payments', paymentsRouter);
+app.use('/api/webhooks', webhooksRouter);
 
 app.listen(env.port, () => {
   // eslint-disable-next-line no-console
