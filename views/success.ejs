@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Booking Successful</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="container">
+      <h1>Express.com</h1>
+      <nav>
+        <a href="/">Make another booking</a>
+        <a href="/bookings">View Bookings</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="card center">
+        <h2>Thank you, <%= name %>!</h2>
+        <p>Your booking has been received.</p>
+        <p><a class="button" href="/bookings">See all bookings</a></p>
+      </section>
+    </main>
+  </body>
+</html>
