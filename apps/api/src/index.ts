@@ -3,6 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import { env } from './env';
+import { healthRouter } from './routes/health';
 
 const app = express();
 
@@ -11,12 +13,9 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.get('/api/health', (_req, res) => {
-  res.json({ success: true, data: { status: 'ok' } });
-});
+app.use('/api/health', healthRouter);
 
-const port = process.env.PORT ? Number(process.env.PORT) : 4000;
-app.listen(port, () => {
+app.listen(env.port, () => {
   // eslint-disable-next-line no-console
-  console.log(`API listening on http://localhost:${port}`);
+  console.log(`API listening on http://localhost:${env.port}`);
 });
