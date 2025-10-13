@@ -11,6 +11,7 @@ import { roomsRouter } from './routes/rooms';
 import { bookingsRouter } from './routes/bookings';
 import { paymentsRouter } from './routes/payments';
 import { webhooksRouter } from './routes/webhooks';
+import { uploadsRouter } from './routes/uploads';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use('/api/webhooks/stripe', express.raw({ type: 'application/json' }));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads', express.static('uploads'));
 
 app.use('/api/health', healthRouter);
 app.use('/api/auth', authRouter);
@@ -28,6 +30,7 @@ app.use('/api/rooms', roomsRouter);
 app.use('/api/bookings', bookingsRouter);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/webhooks', webhooksRouter);
+app.use('/api/uploads', uploadsRouter);
 
 app.listen(env.port, () => {
   // eslint-disable-next-line no-console
