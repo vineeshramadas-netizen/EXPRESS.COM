@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import { env } from './env';
 import { healthRouter } from './routes/health';
 import { authRouter } from './routes/auth';
+import { hotelsRouter } from './routes/hotels';
+import { roomsRouter } from './routes/rooms';
 
 const app = express();
 
@@ -16,6 +18,8 @@ app.use(cookieParser());
 
 app.use('/api/health', healthRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/hotels', hotelsRouter);
+app.use('/api/rooms', roomsRouter);
 
 app.listen(env.port, () => {
   // eslint-disable-next-line no-console

@@ -31,6 +31,7 @@ model Hotel {
   name        String
   address     String
   city        String
+  propertyType String
   latitude    Float
   longitude   Float
   description String
@@ -69,12 +70,14 @@ model Booking {
   checkIn       DateTime
   checkOut      DateTime
   nights        Int
+  quantity      Int       @default(1)
   subtotalCents Int
   taxesCents    Int
   feesCents     Int
   totalCents    Int
   status        BookingStatus @default(PENDING)
   paymentIntentId String?
+  stripeSessionId String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
