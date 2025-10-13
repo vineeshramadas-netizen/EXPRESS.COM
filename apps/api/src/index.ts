@@ -8,6 +8,7 @@ import { healthRouter } from './routes/health';
 import { authRouter } from './routes/auth';
 import { hotelsRouter } from './routes/hotels';
 import { roomsRouter } from './routes/rooms';
+import { bookingsRouter } from './routes/bookings';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use('/api/health', healthRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/hotels', hotelsRouter);
 app.use('/api/rooms', roomsRouter);
+app.use('/api/bookings', bookingsRouter);
 
 app.listen(env.port, () => {
   // eslint-disable-next-line no-console
