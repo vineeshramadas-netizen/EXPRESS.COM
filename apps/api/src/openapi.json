@@ -1,0 +1,16 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Express.com API", "version": "1.0.0" },
+  "paths": {
+    "/api/auth/register": { "post": { "summary": "Register user" } },
+    "/api/auth/login": { "post": { "summary": "Login" } },
+    "/api/auth/refresh": { "post": { "summary": "Refresh token" } },
+    "/api/hotels": { "get": { "summary": "List hotels" }, "post": { "summary": "Create hotel" } },
+    "/api/hotels/{id}": { "get": { "summary": "Hotel details" }, "put": { "summary": "Update hotel" }, "delete": { "summary": "Delete hotel" } },
+    "/api/rooms/{id}": { "get": { "summary": "Room details" } },
+    "/api/bookings": { "post": { "summary": "Create booking" } },
+    "/api/bookings/{id}": { "get": { "summary": "Booking detail" } },
+    "/api/users/{id}/bookings": { "get": { "summary": "User's bookings" } },
+    "/api/webhooks/stripe": { "post": { "summary": "Stripe webhook" } }
+  }
+}

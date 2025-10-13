@@ -12,6 +12,11 @@ import { bookingsRouter } from './routes/bookings';
 import { paymentsRouter } from './routes/payments';
 import { webhooksRouter } from './routes/webhooks';
 import { uploadsRouter } from './routes/uploads';
+import { usersRouter } from './routes/users';
+import { adminRouter } from './routes/admin';
+import { reviewsRouter } from './routes/reviews';
+import swaggerUi from 'swagger-ui-express';
+import openapi from './openapi.json' assert { type: 'json' };
 
 const app = express();
 
@@ -31,6 +36,10 @@ app.use('/api/bookings', bookingsRouter);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/webhooks', webhooksRouter);
 app.use('/api/uploads', uploadsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/admin', adminRouter);
+app.use('/api/reviews', reviewsRouter);
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapi));
 
 app.listen(env.port, () => {
   // eslint-disable-next-line no-console
