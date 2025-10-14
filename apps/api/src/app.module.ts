@@ -9,11 +9,18 @@ import { AdminModule } from './admin/admin.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { UsersModule } from './users/users.module';
 import { EmailModule } from './common/email/email.module';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    ThrottlerModule.forRoot([{ ttl: 60, limit: 30 }]),
+    ThrottlerModule.forRoot([
+      {
+        ttl: parseInt(process.env.THROTTLE_TTL || '60', 10),
+        limit: parseInt(process.env.THROTTLE_LIMIT || '30', 10),
+      },
+    ]),
     PrismaModule,
     EmailModule,
     AuthModule,
@@ -22,6 +29,12 @@ import { EmailModule } from './common/email/email.module';
     BookingsModule,
     AdminModule,
     UsersModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}

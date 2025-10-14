@@ -14,9 +14,11 @@
     "prepare": "husky install",
     "prisma:generate": "prisma generate",
     "migrate:dev": "prisma migrate dev --name init",
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seed.ts",
+    "e2e": "playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.56.0",
     "@types/node": "^20.11.30",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",

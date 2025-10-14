@@ -10,6 +10,7 @@ function CheckoutForm({ holdId }: { holdId: string }) {
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -19,8 +20,12 @@ function CheckoutForm({ holdId }: { holdId: string }) {
       credentials: 'include',
       body: JSON.stringify({ holdId }),
     })
-      .then((r) => r.json())
-      .then((data) => setClientSecret(data.clientSecret));
+      .then(async (r) => {
+        if (!r.ok) throw new Error(`Failed to create PI: ${r.status}`);
+        return r.json();
+      })
+      .then((data) => setClientSecret(data.clientSecret))
+      .catch((e) => setError(e.message));
   }, [holdId]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -29,10 +34,14 @@ function CheckoutForm({ holdId }: { holdId: string }) {
     await stripe.confirmPayment({ elements, confirmParams: { return_url: window.location.origin + '/confirmation' } });
   }
 
+  if (error) return <div className="text-red-600">{error}</div>;
+  if (!clientSecret) return <div>Loading payment form…</div>;
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
       <PaymentElement />
-      <button disabled={!clientSecret} className="bg-green-600 text-white px-4 py-2 rounded">Pay</button>
+      <button disabled={!clientSecret} className="bg-green-600 text-white px-4 py-2 rounded">
+        Pay
+      </button>
     </form>
   );
 }
@@ -40,9 +49,10 @@ function CheckoutForm({ holdId }: { holdId: string }) {
 export default function CheckoutPage({ searchParams }: any) {
   const holdId = searchParams?.holdId;
   if (!holdId) return <div>Missing holdId</div>;
+  // Elements must be initialized with the client secret; we mount after child fetches it
+  const [secret, setSecret] = useState<string | null>(null);
   return (
-    <Elements stripe={stripePromise} options={{ clientSecret: undefined }}>
-      {/* Client secret will be injected by PaymentElement once loaded */}
+    <Elements stripe={stripePromise} options={{ clientSecret: secret || undefined }}>
       <CheckoutForm holdId={holdId} />
     </Elements>
   );
