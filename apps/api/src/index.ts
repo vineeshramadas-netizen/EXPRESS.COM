@@ -18,11 +18,12 @@ import { reviewsRouter } from './routes/reviews';
 import swaggerUi from 'swagger-ui-express';
 import openapi from './openapi.json' assert { type: 'json' };
 import { availabilityRouter } from './routes/availability';
+import { authLimiter, loginLimiter } from './middleware/rateLimit';
 
 const app = express();
 
 app.use(helmet());
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: env.allowedOrigin, credentials: true }));
 // Stripe webhook needs raw body for signature validation; mount before json
 app.use('/api/webhooks/stripe', express.raw({ type: 'application/json' }));
 app.use(express.json());
@@ -30,7 +31,7 @@ app.use(cookieParser());
 app.use('/uploads', express.static('uploads'));
 
 app.use('/api/health', healthRouter);
-app.use('/api/auth', authRouter);
+app.use('/api/auth', loginLimiter, authRouter);
 app.use('/api/hotels', hotelsRouter);
 app.use('/api/rooms', roomsRouter);
 app.use('/api/bookings', bookingsRouter);
