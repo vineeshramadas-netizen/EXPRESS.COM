@@ -1,4 +1,5 @@
 type Props = { params: { id: string } };
+import { BookButton } from './book-button';
 
 export default async function HotelPage({ params }: Props) {
   // TODO: fetch from API once wired
@@ -11,6 +12,7 @@ export default async function HotelPage({ params }: Props) {
           <h1 className="text-3xl font-semibold mt-4">{hotel.name}</h1>
           <p className="text-gray-600">{hotel.city}</p>
           <p className="mt-4">{hotel.description}</p>
+          <div className="mt-4"><BookButton roomId="room_sample_id" /></div>
         </div>
         <aside className="border rounded p-4 h-fit">
           <div className="font-medium mb-2">Select dates</div>
