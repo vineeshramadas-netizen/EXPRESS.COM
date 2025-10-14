@@ -1,0 +1,1 @@
+This folder will contain shadcn/ui components once installed. For now, app uses basic Tailwind components.
