@@ -51,6 +51,25 @@ Use Stripe CLI to forward webhooks to the API and set `STRIPE_WEBHOOK_SECRET`.
 stripe listen --forward-to localhost:4000/api/webhooks/stripe
 ```
 
+## End-to-end tests (Playwright)
+
+1. Start stack:
+   ```bash
+   make up
+   make migrate
+   make seed
+   ```
+2. Install browsers:
+   ```bash
+   npx playwright install --with-deps
+   ```
+3. Run tests:
+   ```bash
+   npm run e2e
+   ```
+
+Notes: E2E uses test-only endpoints under `/api/test/*` which are disabled in production.
+
 ## Notes
 - JWT access + refresh with httpOnly cookie
 - Rate limiting for auth endpoints
