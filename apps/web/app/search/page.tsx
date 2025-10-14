@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { HotelCard } from '@/components/HotelCard';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4000';
 
@@ -34,10 +35,7 @@ export default function SearchPage({ searchParams }: any) {
       <h2 className="text-2xl font-semibold">Results</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {hotels.map((h) => (
-          <Link key={h.id} href={`/hotels/${h.id}`} className="border rounded p-3 hover:shadow">
-            <div className="font-semibold">{h.name}</div>
-            <div className="text-sm text-gray-600">{h.city}</div>
-          </Link>
+          <HotelCard key={h.id} id={h.id} name={h.name} city={h.city} rating={h.rating} description={h.description || undefined} />
         ))}
       </div>
     </div>

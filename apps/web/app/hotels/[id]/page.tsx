@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
+import { BookingSummary } from '@/components/BookingSummary';
 import { useRouter } from 'next/navigation';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4000';
@@ -54,6 +55,11 @@ export default function HotelDetail({ params, searchParams }: any) {
           Hold & Checkout
         </button>
       </div>
+      {roomId && startDate && endDate && (
+        <div className="max-w-md">
+          <BookingSummary nights={Math.max(1, Math.ceil((new Date(endDate).getTime() - new Date(startDate).getTime())/86400000))} pricePerNight={Number(hotel.rooms.find((r:any)=>r.id===roomId)?.pricePerNight || 0)} />
+        </div>
+      )}
     </div>
   );
 }
