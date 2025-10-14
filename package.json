@@ -1,18 +1,33 @@
 {
-  "name": "express-com",
-  "version": "1.0.0",
-  "main": "server.js",
-  "type": "commonjs",
+  "name": "express-com-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "apps/api"
+  ],
   "scripts": {
-    "start": "node server.js"
+    "build": "npm run build -w @express-com/api && npm run build -w @express-com/web",
+    "dev": "concurrently -n api,web -c yellow,cyan \"npm run start:dev -w @express-com/api\" \"npm run dev -w @express-com/web\"",
+    "test": "npm run test -w @express-com/api",
+    "lint": "eslint . --ext .ts,.tsx,.js",
+    "format": "prettier --write .",
+    "prepare": "husky install",
+    "prisma:generate": "prisma generate",
+    "migrate:dev": "prisma migrate dev --name init",
+    "seed": "ts-node prisma/seed.ts"
   },
-  "dependencies": {
-    "express": "^4.18.2",
-    "ejs": "^3.1.9",
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "mongoose": "^7.6.0",
-    "serverless-http": "^3.2.0"
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "husky": "^9.0.11",
+    "prettier": "^3.2.5",
+    "prisma": "^5.18.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.3"
   }
 }
