@@ -67,7 +67,7 @@ jobs:
       - name: Build API
         run: npm run build -w @express-com/api
       - name: Start API
-        run: node apps/api/dist/main.js &
+        run: NODE_ENV=e2e node apps/api/dist/main.js &
       - name: Build WEB
         run: npm run build -w @express-com/web
       - name: Start WEB

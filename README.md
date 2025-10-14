@@ -17,11 +17,17 @@ Monorepo with Next.js frontend and NestJS backend using PostgreSQL (Prisma), Str
    ```bash
    docker-compose up --build
    ```
-3. Run DB migrations and seed (first run handled automatically by compose):
+3. Run DB migrations and seed (or use Makefile):
    ```bash
    npm run prisma:generate
    npm run migrate:dev
    npm run seed
+   ```
+   Or with Makefile shortcuts:
+   ```bash
+   make up
+   make migrate
+   make seed
    ```
 4. Open:
    - API Swagger: http://localhost:4000/api/docs
@@ -43,6 +49,10 @@ GitHub Actions workflow runs lint, tests, and build on push.
 
 ## Environment Variables
 See `.env.example` for required keys (no real secrets committed).
+
+Seeded credentials:
+- Admin: `admin@example.com` / `AdminPass123!`
+- User: `user@example.com` / `UserPass123!`
 
 ## Stripe Webhooks (dev)
 Use Stripe CLI to forward webhooks to the API and set `STRIPE_WEBHOOK_SECRET`.
@@ -69,6 +79,15 @@ stripe listen --forward-to localhost:4000/api/webhooks/stripe
    ```
 
 Notes: E2E uses test-only endpoints under `/api/test/*` which are disabled in production.
+
+## Makefile commands
+```
+make up        # build and run stack
+make logs      # tail logs
+make migrate   # apply dev migrations
+make seed      # seed DB
+make down      # stop and remove containers/volumes
+```
 
 ## Notes
 - JWT access + refresh with httpOnly cookie
