@@ -48,11 +48,31 @@ function CheckoutForm({ holdId }: { holdId: string }) {
 
 export default function CheckoutPage({ searchParams }: any) {
   const holdId = searchParams?.holdId;
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  
+  useEffect(() => {
+    if (!holdId) return;
+    const token = localStorage.getItem('accessToken');
+    fetch(`${API_BASE}/api/bookings/confirm`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: token ? `Bearer ${token}` : '' },
+      credentials: 'include',
+      body: JSON.stringify({ holdId }),
+    })
+      .then(async (r) => {
+        if (!r.ok) throw new Error(`Failed to create PI: ${r.status}`);
+        return r.json();
+      })
+      .then((data) => setClientSecret(data.clientSecret))
+      .catch((e) => setError(e.message));
+  }, [holdId]);
+
   if (!holdId) return <div>Missing holdId</div>;
-  // Elements must be initialized with the client secret; we mount after child fetches it
-  const [secret, setSecret] = useState<string | null>(null);
+  if (error) return <div className="text-red-600">{error}</div>;
+  if (!clientSecret) return <div>Loading payment…</div>;
   return (
-    <Elements stripe={stripePromise} options={{ clientSecret: secret || undefined }}>
+    <Elements stripe={stripePromise} options={{ clientSecret }}>
       <CheckoutForm holdId={holdId} />
     </Elements>
   );
