@@ -17,6 +17,7 @@ import { adminRouter } from './routes/admin';
 import { reviewsRouter } from './routes/reviews';
 import swaggerUi from 'swagger-ui-express';
 import openapi from './openapi.json' assert { type: 'json' };
+import { availabilityRouter } from './routes/availability';
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/reviews', reviewsRouter);
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapi));
+app.use('/api/availability', availabilityRouter);
 
 app.listen(env.port, () => {
   // eslint-disable-next-line no-console
