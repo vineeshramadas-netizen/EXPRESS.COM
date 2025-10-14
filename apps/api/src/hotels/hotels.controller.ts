@@ -3,6 +3,7 @@ import { HotelsService } from './hotels.service';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
+import { PrismaService } from '../prisma/prisma.service';
 
 @ApiTags('hotels')
 @Controller('api/hotels')
@@ -35,7 +36,7 @@ export class HotelsController {
 @ApiTags('admin')
 @Controller('api/admin/hotels')
 export class AdminHotelsController {
-  constructor(private readonly hotels: HotelsService) {}
+  constructor(private readonly hotels: HotelsService, private readonly prisma: PrismaService) {}
 
   @Post()
   @UseGuards(JwtAuthGuard, new RolesGuard(true))
@@ -47,5 +48,13 @@ export class AdminHotelsController {
   @UseGuards(JwtAuthGuard, new RolesGuard(true))
   update(@Param('id') id: string, @Body() body: any) {
     return this.hotels.update(id, body);
+  }
+
+  @Post(':id/rooms')
+  @UseGuards(JwtAuthGuard, new RolesGuard(true))
+  async createRoomForHotel(@Param('id') hotelId: string, @Body() body: any) {
+    return this.prisma.room.create({
+      data: { hotelId, title: body.title, description: body.description, roomType: body.roomType, pricePerNight: body.pricePerNight, maxGuests: body.maxGuests, totalInventory: body.totalInventory, images: body.images || [] },
+    });
   }
 }
