@@ -11,6 +11,7 @@ import { UsersModule } from './users/users.module';
 import { EmailModule } from './common/email/email.module';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard } from '@nestjs/throttler';
+import { TestModule } from './test/test.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ThrottlerGuard } from '@nestjs/throttler';
     BookingsModule,
     AdminModule,
     UsersModule,
+    ...(process.env.NODE_ENV !== 'production' ? [TestModule] as any : []),
   ],
   providers: [
     {

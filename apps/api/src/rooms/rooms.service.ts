@@ -12,4 +12,8 @@ export class RoomsService {
   update(id: string, data: any) {
     return this.prisma.room.update({ where: { id }, data });
   }
+
+  remove(id: string) {
+    return this.prisma.room.delete({ where: { id } });
+  }
 }
