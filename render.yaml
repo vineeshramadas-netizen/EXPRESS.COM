@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: express-com-api
+    env: docker
+    plan: free
+    dockerfilePath: apps/api/Dockerfile
+    region: oregon
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: STRIPE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: WEB_BASE_URL
+        sync: false
+      - key: ALLOWED_ORIGIN
+        sync: false
+    healthCheckPath: /api/health
