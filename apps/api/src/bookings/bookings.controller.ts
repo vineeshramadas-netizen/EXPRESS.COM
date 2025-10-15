@@ -4,7 +4,6 @@ import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import Stripe from 'stripe';
 import { PrismaService } from '../prisma/prisma.service';
-import { Throttle } from '@nestjs/throttler';
 
 class HoldDto {
   roomId!: string;
@@ -21,7 +20,6 @@ export class BookingsController {
   constructor(private readonly bookings: BookingsService, private readonly prisma: PrismaService) {}
 
   @Post('hold')
-  @Throttle(10, 60)
   async hold(@Body() body: HoldDto) {
     const { roomId, startDate, endDate, guests } = body;
     const res = await this.bookings.hold(roomId, new Date(startDate), new Date(endDate), guests);
@@ -30,7 +28,6 @@ export class BookingsController {
 
   @Post('confirm')
   @UseGuards(JwtAuthGuard)
-  @Throttle(10, 60)
   async confirm(@Req() req: any, @Body() body: { holdId: string }) {
     const userId = req.user.userId as string;
     return this.bookings.confirm(body.holdId, userId);

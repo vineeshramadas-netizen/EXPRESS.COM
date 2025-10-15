@@ -42,7 +42,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
-  const port = process.env.PORT_API ? parseInt(process.env.PORT_API, 10) : 4000;
+  const port = process.env.PORT_API ? parseInt(process.env.PORT_API, 10) : 4001;
   await app.listen(port);
   // eslint-disable-next-line no-console
   console.log(`API running on http://localhost:${port}`);

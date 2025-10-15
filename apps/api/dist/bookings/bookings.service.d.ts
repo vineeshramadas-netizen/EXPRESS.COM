@@ -26,7 +26,7 @@ export declare class BookingsService {
         guests: number;
         nights: number;
         totalPrice: import("@prisma/client/runtime/library").Decimal;
-        status: import(".prisma/client").$Enums.BookingStatus;
+        status: string;
         stripePaymentId: string | null;
         userId: string;
     }>;
@@ -40,7 +40,7 @@ export declare class BookingsService {
         guests: number;
         nights: number;
         totalPrice: import("@prisma/client/runtime/library").Decimal;
-        status: import(".prisma/client").$Enums.BookingStatus;
+        status: string;
         stripePaymentId: string | null;
         userId: string;
     }[]>;

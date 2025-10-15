@@ -12,7 +12,7 @@ export declare class UsersController {
         guests: number;
         nights: number;
         totalPrice: import("@prisma/client/runtime/library").Decimal;
-        status: import(".prisma/client").$Enums.BookingStatus;
+        status: string;
         stripePaymentId: string | null;
         userId: string;
     }[]>;

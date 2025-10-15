@@ -6,9 +6,9 @@ export declare class RoomsController {
         id: string;
         createdAt: Date;
         description: string | null;
-        images: string[];
+        images: string;
         title: string;
-        roomType: import(".prisma/client").$Enums.RoomType;
+        roomType: string;
         pricePerNight: import("@prisma/client/runtime/library").Decimal;
         maxGuests: number;
         totalInventory: number;
@@ -18,9 +18,21 @@ export declare class RoomsController {
         id: string;
         createdAt: Date;
         description: string | null;
-        images: string[];
+        images: string;
         title: string;
-        roomType: import(".prisma/client").$Enums.RoomType;
+        roomType: string;
+        pricePerNight: import("@prisma/client/runtime/library").Decimal;
+        maxGuests: number;
+        totalInventory: number;
+        hotelId: string;
+    }, never, import("@prisma/client/runtime/library").DefaultArgs>;
+    remove(id: string): import(".prisma/client").Prisma.Prisma__RoomClient<{
+        id: string;
+        createdAt: Date;
+        description: string | null;
+        images: string;
+        title: string;
+        roomType: string;
         pricePerNight: import("@prisma/client/runtime/library").Decimal;
         maxGuests: number;
         totalInventory: number;

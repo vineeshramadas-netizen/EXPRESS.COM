@@ -3,22 +3,11 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
-enum RoomType {
-  SINGLE
-  DOUBLE
-  SUITE
-}
-
-enum BookingStatus {
-  PENDING
-  CONFIRMED
-  CANCELLED
-  REFUNDED
-}
+// SQLite does not support enums; use String values instead
 
 model User {
   id               String   @id @default(uuid())
@@ -36,9 +25,9 @@ model Hotel {
   name        String
   description String?
   address     String
-  city        String   @db.VarChar(120)
+  city        String
   country     String
-  images      String[]
+  images      String
   rating      Float?
   createdAt   DateTime @default(now())
   rooms       Room[]
@@ -53,11 +42,11 @@ model Room {
   hotel          Hotel    @relation(fields: [hotelId], references: [id], onDelete: Cascade)
   title          String
   description    String?
-  roomType       RoomType
-  pricePerNight  Decimal  @db.Decimal(10,2)
+  roomType       String
+  pricePerNight  Decimal
   maxGuests      Int
   totalInventory Int
-  images         String[]
+  images         String
   createdAt      DateTime @default(now())
   bookings       Booking[]
   holds          BookingHold[]
@@ -77,8 +66,8 @@ model Booking {
   endDate         DateTime
   nights          Int
   guests          Int
-  totalPrice      Decimal        @db.Decimal(10,2)
-  status          BookingStatus  @default(PENDING)
+  totalPrice      Decimal
+  status          String  @default("PENDING")
   stripePaymentId String?
   createdAt       DateTime       @default(now())
 

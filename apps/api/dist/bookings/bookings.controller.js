@@ -15,7 +15,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StripeWebhookController = exports.BookingsController = void 0;
+exports.TestController = exports.StripeWebhookController = exports.BookingsController = void 0;
 const common_1 = require("@nestjs/common");
 const bookings_service_1 = require("./bookings.service");
 const swagger_1 = require("@nestjs/swagger");
@@ -127,3 +127,29 @@ exports.StripeWebhookController = StripeWebhookController = __decorate([
     (0, common_1.Controller)('api/webhooks/stripe'),
     __metadata("design:paramtypes", [bookings_service_1.BookingsService])
 ], StripeWebhookController);
+let TestController = class TestController {
+    constructor(bookings) {
+        this.bookings = bookings;
+    }
+    async forceConfirm(holdId, req) {
+        if (process.env.NODE_ENV !== 'e2e' && process.env.NODE_ENV !== 'development') {
+            return { ok: false };
+        }
+        const userId = (req.user && req.user.userId) || 'test-user';
+        return this.bookings.confirm(holdId, userId);
+    }
+};
+exports.TestController = TestController;
+__decorate([
+    (0, common_1.Post)('force-confirm'),
+    __param(0, (0, common_1.Query)('holdId')),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], TestController.prototype, "forceConfirm", null);
+exports.TestController = TestController = __decorate([
+    (0, swagger_1.ApiTags)('test'),
+    (0, common_1.Controller)('api/test'),
+    __metadata("design:paramtypes", [bookings_service_1.BookingsService])
+], TestController);

@@ -22,6 +22,9 @@ let RoomsService = class RoomsService {
     update(id, data) {
         return this.prisma.room.update({ where: { id }, data });
     }
+    remove(id) {
+        return this.prisma.room.delete({ where: { id } });
+    }
 };
 exports.RoomsService = RoomsService;
 exports.RoomsService = RoomsService = __decorate([

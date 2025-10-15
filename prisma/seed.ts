@@ -1,4 +1,4 @@
-import { PrismaClient, RoomType } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
@@ -30,7 +30,7 @@ async function main() {
           address: `${i} Main St`,
           city,
           country: 'USA',
-          images: [],
+          images: '[]',
           rating: Math.round((Math.random() * 2 + 3) * 10) / 10,
         },
       });
@@ -41,31 +41,31 @@ async function main() {
             hotelId: hotel.id,
             title: 'Standard Single',
             description: 'Cozy single room',
-            roomType: RoomType.SINGLE,
+            roomType: 'SINGLE',
             pricePerNight: 89.99,
             maxGuests: 1,
             totalInventory: 10,
-            images: [],
+            images: '[]',
           },
           {
             hotelId: hotel.id,
             title: 'Deluxe Double',
             description: 'Spacious double room',
-            roomType: RoomType.DOUBLE,
+            roomType: 'DOUBLE',
             pricePerNight: 129.99,
             maxGuests: 2,
             totalInventory: 10,
-            images: [],
+            images: '[]',
           },
           {
             hotelId: hotel.id,
             title: 'Suite',
             description: 'Luxurious suite',
-            roomType: RoomType.SUITE,
+            roomType: 'SUITE',
             pricePerNight: 199.99,
             maxGuests: 4,
             totalInventory: 5,
-            images: [],
+            images: '[]',
           },
         ],
       });

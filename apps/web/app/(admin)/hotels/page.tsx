@@ -22,7 +22,7 @@ export default function AdminHotelsPage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       credentials: 'include',
-      body: JSON.stringify({ name, description: '', address, city, country, images: [] }),
+      body: JSON.stringify({ name, description: '', address, city, country, images: '[]' }),
     });
     setMessage(res.ok ? 'Hotel created' : 'Failed to create hotel');
   }
