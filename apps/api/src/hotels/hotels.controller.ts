@@ -15,15 +15,21 @@ export class HotelsController {
     @Query('city') city?: string,
     @Query('priceMin') priceMin?: string,
     @Query('priceMax') priceMax?: string,
-    @Query('page') page?: string,
-    @Query('pageSize') pageSize?: string,
+    @Query('page') page: string = '1',
+    @Query('pageSize') pageSize: string = '20',
   ) {
+    // Defensive parsing to avoid NaN/undefined unions breaking Prisma where
+    const pMin = priceMin != null && priceMin !== '' ? Number(priceMin) : undefined;
+    const pMax = priceMax != null && priceMax !== '' ? Number(priceMax) : undefined;
+    const p = Number.isFinite(Number(page)) ? Number(page) : 1;
+    const ps = Number.isFinite(Number(pageSize)) ? Number(pageSize) : 20;
+
     return this.hotels.list({
-      city,
-      priceMin: priceMin ? parseFloat(priceMin) : undefined,
-      priceMax: priceMax ? parseFloat(priceMax) : undefined,
-      page: page ? parseInt(page, 10) : undefined,
-      pageSize: pageSize ? parseInt(pageSize, 10) : undefined,
+      city: city && city.trim() ? city.trim() : undefined,
+      priceMin: typeof pMin === 'number' && Number.isFinite(pMin) ? pMin : undefined,
+      priceMax: typeof pMax === 'number' && Number.isFinite(pMax) ? pMax : undefined,
+      page: p,
+      pageSize: ps,
     });
   }
 

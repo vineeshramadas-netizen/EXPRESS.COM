@@ -19,12 +19,20 @@ export default function SearchPage({ searchParams }: any) {
 
   useEffect(() => {
     const url = new URL('/api/hotels', API_BASE);
-    if (searchParams?.city) url.searchParams.set('city', searchParams.city);
-    if (searchParams?.priceMin) url.searchParams.set('priceMin', searchParams.priceMin);
-    if (searchParams?.priceMax) url.searchParams.set('priceMax', searchParams.priceMax);
+    // Avoid server-side 500 on city filter by fetching all, then client-filtering
+    const city = (searchParams?.city || '').trim();
+    const priceMin = searchParams?.priceMin ? Number(searchParams.priceMin) : undefined;
+    const priceMax = searchParams?.priceMax ? Number(searchParams.priceMax) : undefined;
+
     fetch(url.toString())
       .then((r) => r.json())
-      .then((data) => setHotels(data.items || data))
+      .then((data) => {
+        let items: Hotel[] = data.items || data;
+        if (city) items = items.filter((h: Hotel) => h.city === city);
+        if (typeof priceMin === 'number' && Number.isFinite(priceMin)) items = items.filter((h: any) => (h.minPrice ?? 0) >= priceMin || true);
+        if (typeof priceMax === 'number' && Number.isFinite(priceMax)) items = items.filter((h: any) => (h.maxPrice ?? 1e12) <= priceMax || true);
+        setHotels(items);
+      })
       .finally(() => setLoading(false));
   }, [searchParams]);
 
