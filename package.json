@@ -1,26 +1,15 @@
 {
   "name": "express-com",
   "version": "1.0.0",
-  "private": true,
-  "workspaces": [
-    "apps/*"
-  ],
+  "main": "server.js",
   "scripts": {
-    "dev": "npm-run-all -p dev:*",
-    "dev:api": "npm run start:dev -w @express-com/api",
-    "dev:web": "npm run dev -w @express-com/web",
-    "build": "npm run build -w @express-com/api && npm run build -w @express-com/web",
-    "start": "npm run start -w @express-com/api",
-    "prisma:generate": "prisma generate",
-    "migrate:dev": "prisma migrate dev",
-    "seed": "ts-node prisma/seed.ts",
-    "e2e": "playwright test"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.47.0",
-    "npm-run-all": "^4.1.5",
-    "prisma": "^5.18.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.3"
+  "start": "node server.js"
+}  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.6.0",
+    "ejs": "^3.1.9",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
   }
 }
