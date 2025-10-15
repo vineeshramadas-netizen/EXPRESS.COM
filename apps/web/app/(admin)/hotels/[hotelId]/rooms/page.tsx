@@ -32,7 +32,7 @@ export default function AdminRoomsPage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       credentials: 'include',
-      body: JSON.stringify({ hotelId, title, roomType: 'DOUBLE', pricePerNight: parseFloat(price), maxGuests, totalInventory: inventory, images: [] }),
+      body: JSON.stringify({ hotelId, title, roomType: 'DOUBLE', pricePerNight: parseFloat(price), maxGuests, totalInventory: inventory, images: '[]' }),
     });
     await load();
   }

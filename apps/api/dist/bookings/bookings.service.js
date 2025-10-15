@@ -43,7 +43,11 @@ let BookingsService = class BookingsService {
                 NOT: [{ endDate: { lte: startDate } }, { startDate: { gte: endDate } }],
             },
         });
-        return overlappingBookings === 0 && overlappingHolds === 0;
+        const room = await this.prisma.room.findUnique({ where: { id: roomId } });
+        if (!room)
+            throw new common_1.NotFoundException('Room not found');
+        const used = overlappingBookings + overlappingHolds;
+        return used < room.totalInventory;
     }
     async hold(roomId, startDate, endDate, guests) {
         const room = await this.prisma.room.findUnique({ where: { id: roomId } });

@@ -8,7 +8,7 @@
         "./src/lib/*"
       ],
       "@/components/*": [
-        "./src/components/*"
+        "./components/*"
       ]
     },
     "allowJs": true,

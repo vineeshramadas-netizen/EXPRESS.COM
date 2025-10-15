@@ -28,6 +28,9 @@ let RoomsController = class RoomsController {
     update(id, body) {
         return this.rooms.update(id, body);
     }
+    remove(id) {
+        return this.rooms.remove(id);
+    }
 };
 exports.RoomsController = RoomsController;
 __decorate([
@@ -47,6 +50,14 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], RoomsController.prototype, "update", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, new roles_guard_1.RolesGuard(true)),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], RoomsController.prototype, "remove", null);
 exports.RoomsController = RoomsController = __decorate([
     (0, swagger_1.ApiTags)('admin'),
     (0, common_1.Controller)('api/admin/rooms'),

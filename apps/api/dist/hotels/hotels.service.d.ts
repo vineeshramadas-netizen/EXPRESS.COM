@@ -17,7 +17,7 @@ export declare class HotelsService {
             description: string | null;
             address: string;
             country: string;
-            images: string[];
+            images: string;
             rating: number | null;
         }[];
         total: number;
@@ -29,9 +29,9 @@ export declare class HotelsService {
             id: string;
             createdAt: Date;
             description: string | null;
-            images: string[];
+            images: string;
             title: string;
-            roomType: import(".prisma/client").$Enums.RoomType;
+            roomType: string;
             pricePerNight: import("@prisma/client/runtime/library").Decimal;
             maxGuests: number;
             totalInventory: number;
@@ -45,7 +45,7 @@ export declare class HotelsService {
         description: string | null;
         address: string;
         country: string;
-        images: string[];
+        images: string;
         rating: number | null;
     }) | null>;
     create(data: any): Promise<{
@@ -56,7 +56,7 @@ export declare class HotelsService {
         description: string | null;
         address: string;
         country: string;
-        images: string[];
+        images: string;
         rating: number | null;
     }>;
     update(id: string, data: any): Promise<{
@@ -67,7 +67,7 @@ export declare class HotelsService {
         description: string | null;
         address: string;
         country: string;
-        images: string[];
+        images: string;
         rating: number | null;
     }>;
 }

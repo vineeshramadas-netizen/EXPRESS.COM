@@ -1,4 +1,5 @@
 import { HotelsService } from './hotels.service';
+import { PrismaService } from '../prisma/prisma.service';
 export declare class HotelsController {
     private readonly hotels;
     constructor(hotels: HotelsService);
@@ -11,7 +12,7 @@ export declare class HotelsController {
             description: string | null;
             address: string;
             country: string;
-            images: string[];
+            images: string;
             rating: number | null;
         }[];
         total: number;
@@ -23,9 +24,9 @@ export declare class HotelsController {
             id: string;
             createdAt: Date;
             description: string | null;
-            images: string[];
+            images: string;
             title: string;
-            roomType: import(".prisma/client").$Enums.RoomType;
+            roomType: string;
             pricePerNight: import("@prisma/client/runtime/library").Decimal;
             maxGuests: number;
             totalInventory: number;
@@ -39,13 +40,14 @@ export declare class HotelsController {
         description: string | null;
         address: string;
         country: string;
-        images: string[];
+        images: string;
         rating: number | null;
     }) | null>;
 }
 export declare class AdminHotelsController {
     private readonly hotels;
-    constructor(hotels: HotelsService);
+    private readonly prisma;
+    constructor(hotels: HotelsService, prisma: PrismaService);
     create(body: any): Promise<{
         id: string;
         name: string;
@@ -54,7 +56,7 @@ export declare class AdminHotelsController {
         description: string | null;
         address: string;
         country: string;
-        images: string[];
+        images: string;
         rating: number | null;
     }>;
     update(id: string, body: any): Promise<{
@@ -65,7 +67,19 @@ export declare class AdminHotelsController {
         description: string | null;
         address: string;
         country: string;
-        images: string[];
+        images: string;
         rating: number | null;
+    }>;
+    createRoomForHotel(hotelId: string, body: any): Promise<{
+        id: string;
+        createdAt: Date;
+        description: string | null;
+        images: string;
+        title: string;
+        roomType: string;
+        pricePerNight: import("@prisma/client/runtime/library").Decimal;
+        maxGuests: number;
+        totalInventory: number;
+        hotelId: string;
     }>;
 }

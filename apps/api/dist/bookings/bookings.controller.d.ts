@@ -33,11 +33,11 @@ export declare class BookingsController {
         guests: number;
         nights: number;
         totalPrice: import("@prisma/client/runtime/library").Decimal;
-        status: import(".prisma/client").$Enums.BookingStatus;
+        status: string;
         stripePaymentId: string | null;
         userId: string;
     }>;
-    myBookings(req: any, userId: string): Promise<{
+    myBookings(req: any, userId: string): never[] | Promise<{
         id: string;
         createdAt: Date;
         hotelId: string;
@@ -47,10 +47,10 @@ export declare class BookingsController {
         guests: number;
         nights: number;
         totalPrice: import("@prisma/client/runtime/library").Decimal;
-        status: import(".prisma/client").$Enums.BookingStatus;
+        status: string;
         stripePaymentId: string | null;
         userId: string;
-    }[]> | never[];
+    }[]>;
 }
 export declare class StripeWebhookController {
     private readonly bookings;
@@ -58,6 +58,15 @@ export declare class StripeWebhookController {
     constructor(bookings: BookingsService);
     handle(req: any, sig: string): Promise<{
         received: boolean;
+    }>;
+}
+export declare class TestController {
+    private readonly bookings;
+    constructor(bookings: BookingsService);
+    forceConfirm(holdId: string, req: any): Promise<{
+        clientSecret: string | null;
+    } | {
+        ok: boolean;
     }>;
 }
 export {};

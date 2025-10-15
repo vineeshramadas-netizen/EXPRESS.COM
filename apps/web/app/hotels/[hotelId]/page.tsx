@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4000';
 
 export default function HotelDetail({ params, searchParams }: any) {
-  const { id } = params;
+  const { hotelId } = params;
   const router = useRouter();
   const [hotel, setHotel] = useState<any>(null);
   const [roomId, setRoomId] = useState<string | null>(null);
@@ -15,8 +15,8 @@ export default function HotelDetail({ params, searchParams }: any) {
   const [guests, setGuests] = useState(parseInt(searchParams?.guests || '1', 10));
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/hotels/${id}`).then((r) => r.json()).then(setHotel);
-  }, [id]);
+    fetch(`${API_BASE}/api/hotels/${hotelId}`).then((r) => r.json()).then(setHotel);
+  }, [hotelId]);
 
   if (!hotel) return <div>Loading…</div>;
 

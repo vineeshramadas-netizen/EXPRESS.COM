@@ -8,7 +8,12 @@ export class HotelsService {
   async list(params: { city?: string; priceMin?: number; priceMax?: number; page?: number; pageSize?: number }) {
     const { city, priceMin, priceMax, page = 1, pageSize = 20 } = params;
     const where: any = {};
-    if (city) where.city = { contains: city, mode: 'insensitive' };
+    if (city && city.trim()) {
+      const c = city.trim();
+      // For SQLite compatibility, use equals when exact city provided, otherwise contains fallback
+      // Here we assume search uses full city names (e.g., "New York")
+      where.city = { equals: c };
+    }
     if (priceMin || priceMax) {
       where.rooms = { some: { pricePerNight: {} } };
       if (priceMin) where.rooms.some.pricePerNight.gte = priceMin;
